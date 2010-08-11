@@ -78,7 +78,7 @@ module Noodle
           spec.load_paths.each do |path|
             dest_path = dest_for(spec)
             FileUtils.mkdir_p dest_path
-            FileUtils.cp_r path, dest_path, :verbose => true
+            FileUtils.cp_r "#{path}/.", dest_path, :verbose => true
           end
         end
       end
