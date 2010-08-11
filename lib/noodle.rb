@@ -2,29 +2,58 @@
 module Noodle
   module Rake
 
+  # Rake tasks for setting up .NET dependencies.
+  #
+  # Four tasks are defined:
+  # * noodle:copy - copy the lib directories from the gems to the local project.
+  # * noodle:clean - remove the local lib directory.
+  # * noodle:update - clean, then copy.
+  # * noodle - alias of noodle:copy.
+  #
+  # @example
+  #   Noodle::Rake::NoodleTask.new :customname do |n|
+  #     n.groups << :dotnet # only use the bundler :dotnet group
+  #     n.outdir = 'someplace-other-than-lib'
+  #     n.merge! # merge all the libs together
+  #   end
   class NoodleTask < ::Rake::TaskLib
     # The name of the rake task to generate.
-    # Defaults to `:noodle`.
+    #
+    # Defaults to :noodle.
+    # @return [String]
     attr_accessor :name
 
     # An array of bundler groups that reference the required dlls.
     # Use an empty array for all groups.
+    #
     # Defaults to all groups.
+    # @return [Array]
     attr_accessor :groups
 
     # The destination directory.
-    # Defaults to `'lib'`.
+    #
+    # Defaults to 'lib'.
+    # @return [String]
     attr_accessor :outdir
 
     # Whether to copy everything into one directory or not.
     # If this is true, all gem lib directories will be combined in {#outdir}.
     # If this is false, each gem lib will be stored in a separate subdirectory of {#outdir}.
-    # Defaults to `false`.
+    # You can also set this by calling `merge!`
+    #
+    # Defaults to false.
+    # @return [Boolean]
     attr_accessor :merge
 
-    # Set {#merge} to `true`.
-    def merge! ; @merge = true ; end
+    # Sets {#merge} to true.
+    # @return [void]
+    def merge!
+      @merge = true
+    end
 
+    # Define noodle's rake tasks.
+    # @yield [noodle]
+    # @yieldparam [NoodleTask] noodle the noodle task generator.
     def initialize name = :noodle
       @name   = name
       @groups = []
@@ -34,7 +63,8 @@ module Noodle
       define
     end
 
-    def define # :nodoc:
+    private
+    def define
       unless ::Rake.application.last_comment
         desc "Updates .NET dependencies in '#{outdir}'"
       end
