@@ -1,23 +1,21 @@
 require 'rubygems'
+require 'bundler'
+Bundler.setup :default, :rake
 require 'rake'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "noodle"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "maburke@sep.com"
-    gem.homepage = "http://github.com/spraints/noodle"
-    gem.authors = ["Matt Burke"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    gem.add_development_dependency "yard", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+require 'jeweler'
+Jeweler::Tasks.new do |gem|
+  gem.name = "noodle"
+  gem.summary = %Q{TODO: one-line summary of your gem}
+  gem.description = %Q{TODO: longer description of your gem}
+  gem.email = "maburke@sep.com"
+  gem.homepage = "http://github.com/spraints/noodle"
+  gem.authors = ["Matt Burke"]
+  gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+  gem.add_development_dependency "yard", ">= 0"
+  # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
 end
+Jeweler::GemcutterTasks.new
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
@@ -43,11 +41,5 @@ task :test => :check_dependencies
 
 task :default => :test
 
-begin
-  require 'yard'
-  YARD::Rake::YardocTask.new
-rescue LoadError
-  task :yardoc do
-    abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"
-  end
-end
+require 'yard'
+YARD::Rake::YardocTask.new

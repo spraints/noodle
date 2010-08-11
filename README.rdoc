@@ -1,6 +1,6 @@
 = noodle
 
-Description goes here.
+Use bundler to pull in .NET dependencies.
 
 == Note on Patches/Pull Requests
  
