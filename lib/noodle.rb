@@ -66,9 +66,9 @@ module Noodle
     private
     def define
       unless ::Rake.application.last_comment
-        desc "Updates .NET dependencies in '#{outdir}'"
+        desc "Copies .NET dependencies in '#{outdir}'"
       end
-      task name => "#{name}:update"
+      task name => "#{name}:copy"
 
       desc "Copies .NET dependencies to '#{outdir}'"
       task "#{name}:copy" do
@@ -83,12 +83,6 @@ module Noodle
         end
       end
 
-      def dest_for spec
-        dest = outdir.dup
-        dest << "/#{spec.name}-#{spec.version}" unless merge
-        File.expand_path(dest)
-      end
-
       desc "Cleans '#{outdir}'"
       task "#{name}:clean" do
         FileUtils.rm_rf outdir, :verbose => true
@@ -96,6 +90,12 @@ module Noodle
 
       desc "Updates .NET dependencies in '#{outdir}'"
       task "#{name}:update" => ["#{name}:clean", "#{name}:copy"]
+    end
+
+    def dest_for spec
+      dest = outdir.dup
+      dest << "/#{spec.name}-#{spec.version}" unless merge
+      File.expand_path(dest)
     end
   end
 
