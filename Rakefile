@@ -11,9 +11,11 @@ Jeweler::Tasks.new do |gem|
   gem.email = "maburke@sep.com"
   gem.homepage = "http://github.com/spraints/noodle"
   gem.authors = ["Matt Burke"]
-  gem.add_development_dependency "rspec", ">= 1.2.9"
-  gem.add_development_dependency "yard", ">= 0"
-  # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  gem.add_development_dependency 'jeweler'
+  gem.add_development_dependency 'yard'
+  gem.add_development_dependency 'rspec'
+  gem.add_dependency 'rake'
+  gem.add_dependency 'bundler', '>= 1.0.0.rc.3'
 end
 Jeweler::GemcutterTasks.new
 

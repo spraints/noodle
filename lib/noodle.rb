@@ -1,4 +1,5 @@
-
+require 'rake/tasklib'
+require 'bundler'
 module Noodle
   module Rake
 
