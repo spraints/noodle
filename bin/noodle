@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'noodle'
+rescue LoadError
+  require '../lib/noodle'
+end
+
+require 'optparse'
+
+app = Noodle::Noodler.new
+opts = OptionParser.new do |opts|
+  opts.banner = 'Usage: noodle [options]'
+  opts.on('-g', '--group GROUP', 'A bundler group to install.') do |group|
+    app.groups << group
+  end
+  opts.on('-o', '--dest DIR', 'The directory to copy the gem libs to (default: lib)') do |outdir|
+    app.outdir = outdir
+  end
+  opts.on('-m', '--merge', 'If specified, all the gem libs will be merged.') do
+    app.merge!
+  end
+  opts.on('-h', '--help') do
+    show_help opts
+    exit
+  end
+end
+
+def show_help(opts, out=$stdout)
+  puts <<END_COMMANDS
+END_COMMANDS
+  puts opts
+end
+
+begin
+  opts.parse!
+rescue OptionParser::InvalidOption => e
+  $stderr.puts e
+  show_help opts, $stderr
+  exit
+end
+
+app.install

@@ -22,6 +22,15 @@ Then run
 Your project will now have a lib directory with structuremap's dll in it.
 Add a reference to said DLL in your .NET project.
 
+== Example without rakefile
+
+Or, if you don't want to use a Rakefile, try this:
+
+  bundle install
+  noodle
+
+== See also
+
 See {Noodle::Rake::NoodleTask} for information on how to configure it.
 
 == Copyright
